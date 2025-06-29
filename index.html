@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Kas İskelet Sistemi Rahatsızlık Formu</title>
+    <!-- EmailJS Kütüphanesi -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // BURADAKİ BİLGİLERİ KENDİ EmailJS HESABINIZDAN ALDIKLARINIZLA DEĞİŞTİRİN
+            emailjs.init({
+              publicKey: "ABvwlbdeGe7waXU6s", // EmailJS > Account > API Keys altından bulun
+            });
+        })();
+    </script>
     <style>
+        /* Stil kodları aynı, değişiklik yok */
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12pt; line-height: 1.6; color: #333; background-color: #f0f2f5; margin: 0; padding: 20px; }
         .container { max-width: 850px; margin: 20px auto; background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         h1 { font-size: 18pt; text-align: center; color: #1c1e21; }
@@ -21,110 +32,117 @@
         input[type="checkbox"], input[type="radio"] { margin-right: 10px; transform: scale(1.1); vertical-align: middle; }
         .submit-button { display: block; width: 100%; max-width: 300px; margin: 40px auto 0 auto; padding: 15px; background-color: #1877f2; color: white; border: none; border-radius: 6px; font-size: 14pt; font-weight: bold; cursor: pointer; text-align: center; transition: background-color 0.2s; }
         .submit-button:hover { background-color: #166fe5; }
+        .submit-button:disabled { background-color: #9dbef2; cursor: not-allowed; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- FORM ARTIK SİZİN MAİL ADRESİNİZE GÖNDERİM YAPACAK -->
-        <form action="https://formsubmit.co/kerembaglankerem@gmail.com" method="POST">
+        <!-- Form etiketi değişti, ID eklendi -->
+        <form id="contact-form">
             <h1>Kas İskelet Sistemi Rahatsızlık Formu</h1>
             <div class="subtitle">(Nordic Anketine dayanmaktadır, Kuorinka ve ark. 1987)</div>
             
             <!-- Kişisel Bilgiler -->
             <div class="grid">
-                <div><strong>İş/Pozisyon:</strong> <input type="text" name="İş / Pozisyon"></div>
-                <div><strong>Çalışan Kimliği:</strong> <input type="text" name="Çalışan Kimliği"></div>
-                <div><strong>Ne kadar süredir bu işi yapıyorsunuz?</strong> <input type="number" name="Çalışma Süresi (Yıl)" style="width: 40px;"> yıl <input type="number" name="Çalışma Süresi (Ay)" style="width: 40px;"> ay</div>
-                <div><strong>Haftada kaç saat çalışıyorsunuz?</strong> <input type="number" name="Haftalık Çalışma Saati" style="width: 60px;"></div>
-                <div><strong>Cinsiyet:</strong> <label><input type="radio" name="Cinsiyet" value="Erkek"> E</label> <label><input type="radio" name="Cinsiyet" value="Kadın"> K</label></div>
-                <div><strong>Yaş:</strong> <input type="number" name="Yaş" style="width: 60px;"></div>
-                <div><strong>Boy (cm):</strong> <input type="number" name="Boy (cm)" style="width: 70px;"></div>
-                <div><strong>Kilo (kg):</strong> <input type="number" name="Kilo (kg)" style="width: 70px;"></div>
+                 <div><strong>İş/Pozisyon:</strong> <input type="text" name="is_pozisyon"></div>
+                <div><strong>Çalışan Kimliği:</strong> <input type="text" name="calisan_kimligi"></div>
+                <div><strong>Ne kadar süredir bu işi yapıyorsunuz?</strong> <input type="number" name="calisma_suresi_yil" style="width: 40px;"> yıl <input type="number" name="calisma_suresi_ay" style="width: 40px;"> ay</div>
+                <div><strong>Haftada kaç saat çalışıyorsunuz?</strong> <input type="number" name="haftalik_saat" style="width: 60px;"></div>
+                <div><strong>Cinsiyet:</strong> <label><input type="radio" name="cinsiyet" value="Erkek"> E</label> <label><input type="radio" name="cinsiyet" value="Kadın"> K</label></div>
+                <div><strong>Yaş:</strong> <input type="number" name="yas" style="width: 60px;"></div>
+                <div><strong>Boy (cm):</strong> <input type="number" name="boy_cm" style="width: 70px;"></div>
+                <div><strong>Kilo (kg):</strong> <input type="number" name="kilo_kg" style="width: 70px;"></div>
             </div>
 
             <hr style="border: 1px solid #eee; margin: 30px 0;">
-
-            <!-- Talimatlar ve Resim -->
             <h3>Anket nasıl doldurulur:</h3>
-            <div class="how-to-text">
-                <p><strong>Resim:</strong> Bu resimde, tabloda belirtilen vücut bölgelerinin yaklaşık konumlarını görebilirsiniz...</p>
-            </div>
+            <div class="how-to-text"><p>...</p></div>
             <div class="body-image-container">
-                <!-- YENİ RESİM EKLENDİ -->
                 <img src="https://i.ibb.co/WvNVNJRn/Untitled-1.png" alt="Vücut Bölgeleri" class="body-image">
             </div>
             
-            <!-- Anket Tablosu (Daha temiz mail için 'name' alanları güncellendi) -->
-            <table>
+            <!-- Tablo (name alanları mail şablonuna uygun güncellendi) -->
+             <table>
                 <thead>
                     <tr>
                         <th>Herkes tarafından cevaplanacak</th>
                         <th colspan="2">Rahatsızlık yaşamış olanlar tarafından cevaplanacak</th>
                     </tr>
-                    <tr>
-                        <td><strong>Son 12 ay içinde</strong> rahatsızlık yaşadınız mı?</td>
-                        <td><strong>Son 12 ay içinde</strong> rahatsızlık nedeniyle işinizden alıkonuldunuz mu?</td>
-                        <td><strong>Son 7 gün içinde</strong> rahatsızlık yaşadınız mı?</td>
-                    </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Boyun</strong><div class="radio-group"><label><input type="radio" name="Boyun - 12 Ay Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun - 12 Ay Rahatsızlık" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Boyun - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Boyun - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>Boyun</strong><div class="radio-group"><label><input type="radio" name="Boyun_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Boyun_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Boyun_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Omuzlar</strong><div class="checkbox-group"><label><input type="checkbox" name="Omuzlar - Rahatsızlık" value="Sağ Omuz"> Sağ Omuz</label><label><input type="checkbox" name="Omuzlar - Rahatsızlık" value="Sol Omuz"> Sol Omuz</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Omuzlar - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Omuzlar - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
-                    </tr>
-                    <!-- Diğer satırlar da benzer şekilde güncellendi -->
-                    <tr>
-                        <td><strong>Dirsekler</strong><div class="checkbox-group"><label><input type="checkbox" name="Dirsekler - Rahatsızlık" value="Sağ Dirsek"> Sağ Dirsek</label><label><input type="checkbox" name="Dirsekler - Rahatsızlık" value="Sol Dirsek"> Sol Dirsek</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Dirsekler - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Dirsekler - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>Omuzlar</strong><div class="checkbox-group"><label><input type="checkbox" name="Omuzlar_Rahatsizlik" value="Sağ Omuz"> Sağ</label><label><input type="checkbox" name="Omuzlar_Rahatsizlik" value="Sol Omuz"> Sol</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Omuzlar_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Omuzlar_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>El Bilekleri/Eller</strong><div class="checkbox-group"><label><input type="checkbox" name="Eller - Rahatsızlık" value="Sağ El/Bilek"> Sağ El/Bilek</label><label><input type="checkbox" name="Eller - Rahatsızlık" value="Sol El/Bilek"> Sol El/Bilek</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Eller - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Eller - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Eller - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Eller - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>Dirsekler</strong><div class="checkbox-group"><label><input type="checkbox" name="Dirsekler_Rahatsizlik" value="Sağ Dirsek"> Sağ</label><label><input type="checkbox" name="Dirsekler_Rahatsizlik" value="Sol Dirsek"> Sol</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Dirsekler_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Dirsekler_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="Üst Sırt - 12 Ay Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Üst Sırt - 12 Ay Rahatsızlık" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Üst Sırt - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Üst Sırt - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Üst Sırt - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Üst Sırt - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>El Bilekleri/Eller</strong><div class="checkbox-group"><label><input type="checkbox" name="Eller_Rahatsizlik" value="Sağ El/Bilek"> Sağ</label><label><input type="checkbox" name="Eller_Rahatsizlik" value="Sol El/Bilek"> Sol</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Eller_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Eller_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                    </tr>
+                     <tr>
+                        <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="Ust_Sirt_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ust_Sirt_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Ust_Sirt_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Ust_Sirt_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Ust_Sirt_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ust_Sirt_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Sırtın Alt Kısmı (bel)</strong><div class="radio-group"><label><input type="radio" name="Alt Sırt - 12 Ay Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Alt Sırt - 12 Ay Rahatsızlık" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Alt Sırt - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Alt Sırt - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Alt Sırt - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Alt Sırt - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>Sırtın Alt Kısmı (bel)</strong><div class="radio-group"><label><input type="radio" name="Alt_Sirt_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Alt_Sirt_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Alt_Sirt_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Alt_Sirt_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Alt_Sirt_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Alt_Sirt_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Bir veya İki Kalça/Uyluk</strong><div class="radio-group"><label><input type="radio" name="Kalça/Uyluk - 12 Ay Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Kalça/Uyluk - 12 Ay Rahatsızlık" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Kalça/Uyluk - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Kalça/Uyluk - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Kalça/Uyluk - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Kalça/Uyluk - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>Bir veya İki Kalça/Uyluk</strong><div class="radio-group"><label><input type="radio" name="Kalca_Uyluk_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Kalca_Uyluk_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Kalca_Uyluk_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Kalca_Uyluk_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Kalca_Uyluk_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Kalca_Uyluk_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Bir veya İki Diz</strong><div class="radio-group"><label><input type="radio" name="Diz - 12 Ay Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Diz - 12 Ay Rahatsızlık" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Diz - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Diz - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Diz - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Diz - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>Bir veya İki Diz</strong><div class="radio-group"><label><input type="radio" name="Diz_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Diz_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Diz_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Diz_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Diz_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Diz_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Bir veya İki Ayak Bileği/Ayak</strong><div class="radio-group"><label><input type="radio" name="Ayak - 12 Ay Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak - 12 Ay Rahatsızlık" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Ayak - İşi Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak - İşi Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Ayak - 7 Gün Rahatsızlık" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak - 7 Gün Rahatsızlık" value="Evet"> Evet</label></div></td>
+                        <td><strong>Bir veya İki Ayak Bileği/Ayak</strong><div class="radio-group"><label><input type="radio" name="Ayak_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Ayak_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak_Isi_Engelleme" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="Ayak_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
                     </tr>
                 </tbody>
             </table>
-
-            <!-- GİZLİ ALANLAR (Mail formatı, başlığı ve yönlendirme için) -->
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_subject" value="Yeni Kas İskelet Sistemi Rahatsızlık Formu Bildirimi">
-            <input type="hidden" name="_next" value="https://rahatsizlikformu.github.io/iskelet/tesekkurler.html">
             
-            <button type="submit" class="submit-button">Bilgileri E-posta ile Gönder</button>
+            <button type="submit" class="submit-button" id="submit_button">Bilgileri E-posta ile Gönder</button>
         </form>
     </div>
+
+    <script>
+        const btn = document.getElementById('submit_button');
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            btn.textContent = 'Gönderiliyor...';
+            btn.disabled = true;
+
+            const serviceID = 'service_becu4bu'; // EmailJS'den aldığınız Service ID
+            const templateID = 'template_p9ans5e'; // EmailJS'den aldığınız Template ID
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    window.location.href = 'https://rahatsizlikformu.github.io/iskelet/tesekkurler.html';
+                }, (err) => {
+                    btn.textContent = 'Bilgileri E-posta ile Gönder';
+                    btn.disabled = false;
+                    alert('Bir hata oluştu: ' + JSON.stringify(err));
+                });
+        });
+    </script>
 </body>
 </html>
