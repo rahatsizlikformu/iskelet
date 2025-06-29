@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kas İskelet Sistemi Rahatsızlık Formu</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12pt; line-height: 1.6; color: #333; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 850px; margin: 20px auto; background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { font-size: 18pt; text-align: center; color: #1c1e21; }
+        .subtitle { font-size: 10pt; text-align: center; margin-bottom: 25px; color: #606770; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px 30px; margin-bottom: 20px; align-items: center; }
+        input[type="text"], input[type="number"] { border: 1px solid #ccc; border-radius: 4px; padding: 8px 10px; width: 95%; font-size: 11pt; }
+        h3 { border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; margin-top: 30px; font-size: 14pt; }
+        .how-to-text { font-size: 11pt; color: #4b4f56; }
+        .body-image-container { text-align: center; margin: 25px 0; }
+        .body-image { max-width: 80%; width: 500px; height: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 25px; font-size: 10.5pt; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; vertical-align: top; }
+        th { background-color: #f6f7f8; font-weight: 600; }
+        .checkbox-group label, .radio-group label { display: block; margin-bottom: 8px; cursor: pointer; }
+        input[type="checkbox"], input[type="radio"] { margin-right: 10px; transform: scale(1.1); vertical-align: middle; }
+        .submit-button { display: block; width: 100%; max-width: 300px; margin: 40px auto 0 auto; padding: 15px; background-color: #1877f2; color: white; border: none; border-radius: 6px; font-size: 14pt; font-weight: bold; cursor: pointer; text-align: center; transition: background-color 0.2s; }
+        .submit-button:hover { background-color: #166fe5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- FORM BURADAN BAŞLIYOR - E-POSTA ADRESİNİ BURADA DEĞİŞTİRİN -->
+        <form action="https://formsubmit.co/kerembaglankerem@gmail.com" method="POST">
+            <h1>Kas İskelet Sistemi Rahatsızlık Formu</h1>
+            <div class="subtitle">(Nordic Anketine dayanmaktadır, Kuorinka ve ark. 1987)</div>
+            
+            <div class="grid">
+                <div><strong>İş/Pozisyon:</strong> <input type="text" name="is_pozisyon"></div>
+                <div><strong>Çalışan Kimliği:</strong> <input type="text" name="calisan_kimligi"></div>
+                <div><strong>Ne kadar süredir bu işi yapıyorsunuz?</strong> <input type="number" name="calisma_suresi_yil" style="width: 40px;"> yıl <input type="number" name="calisma_suresi_ay" style="width: 40px;"> ay</div>
+                <div><strong>Haftada kaç saat çalışıyorsunuz?</strong> <input type="number" name="haftalik_saat" style="width: 60px;"></div>
+                <div><strong>Cinsiyet:</strong> <label><input type="radio" name="cinsiyet" value="Erkek"> E</label> <label><input type="radio" name="cinsiyet" value="Kadın"> K</label></div>
+                <div><strong>Yaş:</strong> <input type="number" name="yas" style="width: 60px;"></div>
+                <div><strong>Boy (cm):</strong> <input type="number" name="boy_cm" style="width: 70px;"></div>
+                <div><strong>Kilo (kg):</strong> <input type="number" name="kilo_kg" style="width: 70px;"></div>
+            </div>
+
+            <hr style="border: 1px solid #eee; margin: 30px 0;">
+
+            <h3>Anket nasıl doldurulur:</h3>
+            <div class="how-to-text">
+                <p><strong>Resim:</strong> Bu resimde, tabloda belirtilen vücut bölgelerinin yaklaşık konumlarını görebilirsiniz. Sınırlar net olarak tanımlanmamıştır ve bazı kısımlar örtüşmektedir. Rahatsızlığınızın (eğer varsa) hangi bölgede olduğuna kendiniz karar vermelisiniz.</p>
+                <p><strong>Tablo:</strong> Lütfen her soru için uygun kutuya bir "X" işareti koyarak cevap verin. Nasıl cevap vereceğinizden emin değilseniz, lütfen elinizden gelenin en iyisini yapın. Vücudunuzun herhangi bir bölgesinde hiç rahatsızlık yaşamamış olsanız bile anketin 1. sütununun cevaplanması gerektiğini unutmayın; 2. ve 3. sütunlar ise 1. sütunda evet cevabı verdiyseniz doldurulacaktır.</p>
+            </div>
+            
+            <div class="body-image-container">
+                <img src="resim.png" alt="Vücut Bölgeleri" class="body-image">
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Herkes tarafından cevaplanacak</th>
+                        <th colspan="2">Rahatsızlık yaşamış olanlar tarafından cevaplanacak</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Son 12 ay içinde</strong> herhangi bir zamanda aşağıdaki bölgelerde rahatsızlık (ağrı, sızı, uyuşma) yaşadınız mı?</td>
+                        <td><strong>Son 12 ay içinde</strong> yaşadığınız rahatsızlık nedeniyle normal işlerinizi yapmaktan alıkonuldunuz mu?</td>
+                        <td><strong>Son 7 gün içinde</strong> herhangi bir zamanda rahatsızlık yaşadınız mı?</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Her bir vücut bölgesi için satırlar -->
+                    <tr>
+                        <td><strong>Boyun</strong><div class="radio-group"><label><input type="radio" name="rahatsizlik_boyun" value="Hayır"> Hayır</label><label><input type="radio" name="rahatsizlik_boyun" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_boyun" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_boyun" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_boyun" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_boyun" value="Evet"> Evet</label></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Omuzlar</strong><div class="checkbox-group"><label><input type="checkbox" name="rahatsizlik_omuzlar[]" value="Sağ Omuz"> Sağ Omuz</label><label><input type="checkbox" name="rahatsizlik_omuzlar[]" value="Sol Omuz"> Sol Omuz</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_omuzlar" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_omuzlar" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_omuzlar" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_omuzlar" value="Evet"> Evet</label></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dirsekler</strong><div class="checkbox-group"><label><input type="checkbox" name="rahatsizlik_dirsekler[]" value="Sağ Dirsek"> Sağ Dirsek</label><label><input type="checkbox" name="rahatsizlik_dirsekler[]" value="Sol Dirsek"> Sol Dirsek</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_dirsekler" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_dirsekler" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_dirsekler" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_dirsekler" value="Evet"> Evet</label></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>El Bilekleri/Eller</strong><div class="checkbox-group"><label><input type="checkbox" name="rahatsizlik_eller[]" value="Sağ El/Bilek"> Sağ El/Bilek</label><label><input type="checkbox" name="rahatsizlik_eller[]" value="Sol El/Bilek"> Sol El/Bilek</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_eller" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_eller" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_eller" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_eller" value="Evet"> Evet</label></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="rahatsizlik_ustsirt" value="Hayır"> Hayır</label><label><input type="radio" name="rahatsizlik_ustsirt" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_ustsirt" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_ustsirt" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_ustsirt" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_ustsirt" value="Evet"> Evet</label></div></td>
+                    </tr>
+                     <tr>
+                        <td><strong>Sırtın Alt Kısmı (bel bölgesi)</strong><div class="radio-group"><label><input type="radio" name="rahatsizlik_altsirt" value="Hayır"> Hayır</label><label><input type="radio" name="rahatsizlik_altsirt" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_altsirt" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_altsirt" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_altsirt" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_altsirt" value="Evet"> Evet</label></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bir veya İki Kalça/Uyluk</strong><div class="radio-group"><label><input type="radio" name="rahatsizlik_kalca" value="Hayır"> Hayır</label><label><input type="radio" name="rahatsizlik_kalca" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_kalca" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_kalca" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_kalca" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_kalca" value="Evet"> Evet</label></div></td>
+                    </tr>
+                     <tr>
+                        <td><strong>Bir veya İki Diz</strong><div class="radio-group"><label><input type="radio" name="rahatsizlik_diz" value="Hayır"> Hayır</label><label><input type="radio" name="rahatsizlik_diz" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_diz" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_diz" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_diz" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_diz" value="Evet"> Evet</label></div></td>
+                    </tr>
+                     <tr>
+                        <td><strong>Bir veya İki Ayak Bileği/Ayak</strong><div class="radio-group"><label><input type="radio" name="rahatsizlik_ayak" value="Hayır"> Hayır</label><label><input type="radio" name="rahatsizlik_ayak" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="engelleme_ayak" value="Hayır"> Hayır</label><label><input type="radio" name="engelleme_ayak" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="son7gun_ayak" value="Hayır"> Hayır</label><label><input type="radio" name="son7gun_ayak" value="Evet"> Evet</label></div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Gizli alanlar ve gönder butonu -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://codepen.io/pen/editor/abzBvOd"> <!-- Teşekkür sayfasına yönlendirme -->
+
+            <button type="submit" class="submit-button">Bilgileri E-posta ile Gönder</button>
+        </form>
+    </div>
+</body>
+</html>
