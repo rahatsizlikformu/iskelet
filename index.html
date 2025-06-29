@@ -6,15 +6,14 @@
     <!-- EmailJS Kütüphanesi -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
+        // SİZİN SAĞLADIĞINIZ PUBLIC KEY DOĞRUDAN EKLENDİ
         (function() {
-            // BURADAKİ BİLGİLERİ KENDİ EmailJS HESABINIZDAN ALDIKLARINIZLA DEĞİŞTİRİN
             emailjs.init({
-              publicKey: "ABvwlbdeGe7waXU6s", // EmailJS > Account > API Keys altından bulun
+              publicKey: "ABvwlbdeGe7waXU6s",
             });
         })();
     </script>
     <style>
-        /* Stil kodları aynı, değişiklik yok */
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12pt; line-height: 1.6; color: #333; background-color: #f0f2f5; margin: 0; padding: 20px; }
         .container { max-width: 850px; margin: 20px auto; background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         h1 { font-size: 18pt; text-align: center; color: #1c1e21; }
@@ -37,14 +36,13 @@
 </head>
 <body>
     <div class="container">
-        <!-- Form etiketi değişti, ID eklendi -->
+        <!-- Form etiketi EmailJS ile çalışacak şekilde ayarlandı -->
         <form id="contact-form">
             <h1>Kas İskelet Sistemi Rahatsızlık Formu</h1>
             <div class="subtitle">(Nordic Anketine dayanmaktadır, Kuorinka ve ark. 1987)</div>
             
-            <!-- Kişisel Bilgiler -->
             <div class="grid">
-                 <div><strong>İş/Pozisyon:</strong> <input type="text" name="is_pozisyon"></div>
+                <div><strong>İş/Pozisyon:</strong> <input type="text" name="is_pozisyon"></div>
                 <div><strong>Çalışan Kimliği:</strong> <input type="text" name="calisan_kimligi"></div>
                 <div><strong>Ne kadar süredir bu işi yapıyorsunuz?</strong> <input type="number" name="calisma_suresi_yil" style="width: 40px;"> yıl <input type="number" name="calisma_suresi_ay" style="width: 40px;"> ay</div>
                 <div><strong>Haftada kaç saat çalışıyorsunuz?</strong> <input type="number" name="haftalik_saat" style="width: 60px;"></div>
@@ -55,18 +53,27 @@
             </div>
 
             <hr style="border: 1px solid #eee; margin: 30px 0;">
+
             <h3>Anket nasıl doldurulur:</h3>
-            <div class="how-to-text"><p>...</p></div>
+            <div class="how-to-text">
+                <p><strong>Resim:</strong> Bu resimde, tabloda belirtilen vücut bölgelerinin yaklaşık konumlarını görebilirsiniz. Sınırlar net olarak tanımlanmamıştır ve bazı kısımlar örtüşmektedir. Rahatsızlığınızın (eğer varsa) hangi bölgede olduğuna kendiniz karar vermelisiniz.</p>
+                <p><strong>Tablo:</strong> Lütfen her soru için uygun kutuya bir "X" işareti koyarak cevap verin. Nasıl cevap vereceğinizden emin değilseniz, lütfen elinizden gelenin en iyisini yapın. Vücudunuzun herhangi bir bölgesinde hiç rahatsızlık yaşamamış olsanız bile anketin 1. sütununun cevaplanması gerektiğini unutmayın; 2. ve 3. sütunlar ise 1. sütunda evet cevabı verdiyseniz doldurulacaktır.</p>
+            </div>
+            
             <div class="body-image-container">
                 <img src="https://i.ibb.co/WvNVNJRn/Untitled-1.png" alt="Vücut Bölgeleri" class="body-image">
             </div>
             
-            <!-- Tablo (name alanları mail şablonuna uygun güncellendi) -->
-             <table>
-                <thead>
+            <table>
+                 <thead>
                     <tr>
                         <th>Herkes tarafından cevaplanacak</th>
                         <th colspan="2">Rahatsızlık yaşamış olanlar tarafından cevaplanacak</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Son 12 ay içinde</strong> rahatsızlık yaşadınız mı?</td>
+                        <td><strong>Son 12 ay içinde</strong> rahatsızlık nedeniyle işinizden alıkonuldunuz mu?</td>
+                        <td><strong>Son 7 gün içinde</strong> rahatsızlık yaşadınız mı?</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,23 +131,44 @@
 
     <script>
         const btn = document.getElementById('submit_button');
+        const form = document.getElementById('contact-form');
 
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
+        form.addEventListener('submit', function(event) {
             event.preventDefault();
 
             btn.textContent = 'Gönderiliyor...';
             btn.disabled = true;
 
-            const serviceID = 'service_becu4bu'; // EmailJS'den aldığınız Service ID
-            const templateID = 'template_p9ans5e'; // EmailJS'den aldığınız Template ID
+            // SİZİN SAĞLADIĞINIZ SERVICE ID VE TEMPLATE ID DOĞRUDAN EKLENDİ
+            const serviceID = 'service_becu4bu';
+            const templateID = 'template_p9ans5e';
+            
+            // Çoklu seçim (checkbox) verilerini düzgün birleştirmek için
+            const formData = new FormData(form);
+            const templateParams = {};
+            
+            // Tüm tekli verileri al
+            for (let [key, value] of formData.entries()) {
+                if (!key.endsWith('[]')) {
+                    templateParams[key] = value;
+                }
+            }
 
-            emailjs.sendForm(serviceID, templateID, this)
+            // Checkbox gruplarını virgülle ayrılmış metin olarak birleştir
+            const checkboxGroups = ['Omuzlar_Rahatsizlik', 'Dirsekler_Rahatsizlik', 'Eller_Rahatsizlik'];
+            checkboxGroups.forEach(groupName => {
+                const values = formData.getAll(groupName);
+                templateParams[groupName] = values.length > 0 ? values.join(', ') : 'Seçim yapılmadı';
+            });
+
+
+            emailjs.send(serviceID, templateID, templateParams)
                 .then(() => {
-                    window.location.href = 'https://rahatsizlikformu.github.io/iskelet/tesekkurler.html';
+                    window.location.href = 'tesekkurler.html';
                 }, (err) => {
                     btn.textContent = 'Bilgileri E-posta ile Gönder';
                     btn.disabled = false;
-                    alert('Bir hata oluştu: ' + JSON.stringify(err));
+                    alert('Form gönderilemedi. Lütfen tekrar deneyin.\nHata: ' + JSON.stringify(err));
                 });
         });
     </script>
