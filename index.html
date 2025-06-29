@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Kas İskelet Sistemi Rahatsızlık Formu</title>
-    <!-- EmailJS Kütüphanesi -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
-        // SİZİN SAĞLADIĞINIZ PUBLIC KEY DOĞRUDAN EKLENDİ
         (function() {
-            emailjs.init({
-              publicKey: "ABvwlbdeGe7waXU6s",
-            });
+            emailjs.init({ publicKey: "ABvwlbdeGe7waXU6s" });
         })();
     </script>
     <style>
@@ -36,7 +32,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Form etiketi EmailJS ile çalışacak şekilde ayarlandı -->
         <form id="contact-form">
             <h1>Kas İskelet Sistemi Rahatsızlık Formu</h1>
             <div class="subtitle">(Nordic Anketine dayanmaktadır, Kuorinka ve ark. 1987)</div>
@@ -53,7 +48,6 @@
             </div>
 
             <hr style="border: 1px solid #eee; margin: 30px 0;">
-
             <h3>Anket nasıl doldurulur:</h3>
             <div class="how-to-text">
                 <p><strong>Resim:</strong> Bu resimde, tabloda belirtilen vücut bölgelerinin yaklaşık konumlarını görebilirsiniz. Sınırlar net olarak tanımlanmamıştır ve bazı kısımlar örtüşmektedir. Rahatsızlığınızın (eğer varsa) hangi bölgede olduğuna kendiniz karar vermelisiniz.</p>
@@ -78,49 +72,49 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Boyun</strong><div class="radio-group"><label><input type="radio" name="Boyun_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Boyun_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Boyun_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Boyun</strong><div class="radio-group"><label><input type="radio" name="boyun_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="boyun_12_ay" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="boyun_engel" value="Hayır"> Hayır</label><label><input type="radio" name="boyun_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="boyun_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="boyun_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Omuzlar</strong><div class="checkbox-group"><label><input type="checkbox" name="Omuzlar_Rahatsizlik" value="Sağ Omuz"> Sağ</label><label><input type="checkbox" name="Omuzlar_Rahatsizlik" value="Sol Omuz"> Sol</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Omuzlar_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Omuzlar_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Omuzlar</strong><div class="checkbox-group"><label><input type="checkbox" name="omuzlar_bolge" value="Sağ Omuz"> Sağ</label><label><input type="checkbox" name="omuzlar_bolge" value="Sol Omuz"> Sol</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="omuzlar_engel" value="Hayır"> Hayır</label><label><input type="radio" name="omuzlar_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="omuzlar_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="omuzlar_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Dirsekler</strong><div class="checkbox-group"><label><input type="checkbox" name="Dirsekler_Rahatsizlik" value="Sağ Dirsek"> Sağ</label><label><input type="checkbox" name="Dirsekler_Rahatsizlik" value="Sol Dirsek"> Sol</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Dirsekler_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Dirsekler_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Dirsekler</strong><div class="checkbox-group"><label><input type="checkbox" name="dirsekler_bolge" value="Sağ Dirsek"> Sağ</label><label><input type="checkbox" name="dirsekler_bolge" value="Sol Dirsek"> Sol</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="dirsekler_engel" value="Hayır"> Hayır</label><label><input type="radio" name="dirsekler_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="dirsekler_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="dirsekler_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>El Bilekleri/Eller</strong><div class="checkbox-group"><label><input type="checkbox" name="Eller_Rahatsizlik" value="Sağ El/Bilek"> Sağ</label><label><input type="checkbox" name="Eller_Rahatsizlik" value="Sol El/Bilek"> Sol</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Eller_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Eller_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>El Bilekleri/Eller</strong><div class="checkbox-group"><label><input type="checkbox" name="eller_bolge" value="Sağ El/Bilek"> Sağ</label><label><input type="checkbox" name="eller_bolge" value="Sol El/Bilek"> Sol</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="eller_engel" value="Hayır"> Hayır</label><label><input type="radio" name="eller_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="eller_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="eller_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                      <tr>
-                        <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="Ust_Sirt_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ust_Sirt_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Ust_Sirt_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Ust_Sirt_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Ust_Sirt_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ust_Sirt_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="ust_sirt_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="ust_sirt_12_ay" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="ust_sirt_engel" value="Hayır"> Hayır</label><label><input type="radio" name="ust_sirt_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="ust_sirt_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="ust_sirt_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Sırtın Alt Kısmı (bel)</strong><div class="radio-group"><label><input type="radio" name="Alt_Sirt_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Alt_Sirt_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Alt_Sirt_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Alt_Sirt_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Alt_Sirt_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Alt_Sirt_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Sırtın Alt Kısmı (bel)</strong><div class="radio-group"><label><input type="radio" name="alt_sirt_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="alt_sirt_12_ay" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="alt_sirt_engel" value="Hayır"> Hayır</label><label><input type="radio" name="alt_sirt_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="alt_sirt_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="alt_sirt_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Bir veya İki Kalça/Uyluk</strong><div class="radio-group"><label><input type="radio" name="Kalca_Uyluk_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Kalca_Uyluk_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Kalca_Uyluk_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Kalca_Uyluk_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Kalca_Uyluk_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Kalca_Uyluk_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Bir veya İki Kalça/Uyluk</strong><div class="radio-group"><label><input type="radio" name="kalca_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="kalca_12_ay" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="kalca_engel" value="Hayır"> Hayır</label><label><input type="radio" name="kalca_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="kalca_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="kalca_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Bir veya İki Diz</strong><div class="radio-group"><label><input type="radio" name="Diz_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Diz_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Diz_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Diz_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Diz_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Diz_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Bir veya İki Diz</strong><div class="radio-group"><label><input type="radio" name="diz_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="diz_12_ay" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="diz_engel" value="Hayır"> Hayır</label><label><input type="radio" name="diz_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="diz_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="diz_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Bir veya İki Ayak Bileği/Ayak</strong><div class="radio-group"><label><input type="radio" name="Ayak_12_Ay_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak_12_Ay_Rahatsizlik" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Ayak_Isi_Engelleme" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak_Isi_Engelleme" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="Ayak_7_Gun_Rahatsizlik" value="Hayır"> Hayır</label><label><input type="radio" name="Ayak_7_Gun_Rahatsizlik" value="Evet"> Evet</label></div></td>
+                        <td><strong>Bir veya İki Ayak Bileği/Ayak</strong><div class="radio-group"><label><input type="radio" name="ayak_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="ayak_12_ay" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="ayak_engel" value="Hayır"> Hayır</label><label><input type="radio" name="ayak_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="ayak_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="ayak_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                 </tbody>
             </table>
@@ -139,28 +133,57 @@
             btn.textContent = 'Gönderiliyor...';
             btn.disabled = true;
 
-            // SİZİN SAĞLADIĞINIZ SERVICE ID VE TEMPLATE ID DOĞRUDAN EKLENDİ
             const serviceID = 'service_becu4bu';
             const templateID = 'template_p9ans5e';
             
-            // Çoklu seçim (checkbox) verilerini düzgün birleştirmek için
-            const formData = new FormData(form);
-            const templateParams = {};
-            
-            // Tüm tekli verileri al
-            for (let [key, value] of formData.entries()) {
-                if (!key.endsWith('[]')) {
-                    templateParams[key] = value;
-                }
-            }
+            // FormData'dan daha güvenilir olan, doğrudan bir nesne oluşturan yöntem
+            const templateParams = {
+                calisan_kimligi: form.querySelector('[name="calisan_kimligi"]').value,
+                is_pozisyon: form.querySelector('[name="is_pozisyon"]').value,
+                yas: form.querySelector('[name="yas"]').value,
+                cinsiyet: form.querySelector('[name="cinsiyet"]:checked') ? form.querySelector('[name="cinsiyet"]:checked').value : 'Belirtilmedi',
+                boy_cm: form.querySelector('[name="boy_cm"]').value,
+                kilo_kg: form.querySelector('[name="kilo_kg"]').value,
+                calisma_suresi_yil: form.querySelector('[name="calisma_suresi_yil"]').value,
+                calisma_suresi_ay: form.querySelector('[name="calisma_suresi_ay"]').value,
+                haftalik_saat: form.querySelector('[name="haftalik_saat"]').value,
+                
+                boyun_12_ay: form.querySelector('[name="boyun_12_ay"]:checked') ? form.querySelector('[name="boyun_12_ay"]:checked').value : 'Cevaplanmadı',
+                boyun_engel: form.querySelector('[name="boyun_engel"]:checked') ? form.querySelector('[name="boyun_engel"]:checked').value : 'Cevaplanmadı',
+                boyun_7_gun: form.querySelector('[name="boyun_7_gun"]:checked') ? form.querySelector('[name="boyun_7_gun"]:checked').value : 'Cevaplanmadı',
 
-            // Checkbox gruplarını virgülle ayrılmış metin olarak birleştir
-            const checkboxGroups = ['Omuzlar_Rahatsizlik', 'Dirsekler_Rahatsizlik', 'Eller_Rahatsizlik'];
-            checkboxGroups.forEach(groupName => {
-                const values = formData.getAll(groupName);
-                templateParams[groupName] = values.length > 0 ? values.join(', ') : 'Seçim yapılmadı';
-            });
+                omuzlar_bolge: Array.from(form.querySelectorAll('[name="omuzlar_bolge"]:checked')).map(el => el.value).join(', ') || 'Seçim yapılmadı',
+                omuzlar_engel: form.querySelector('[name="omuzlar_engel"]:checked') ? form.querySelector('[name="omuzlar_engel"]:checked').value : 'Cevaplanmadı',
+                omuzlar_7_gun: form.querySelector('[name="omuzlar_7_gun"]:checked') ? form.querySelector('[name="omuzlar_7_gun"]:checked').value : 'Cevaplanmadı',
 
+                dirsekler_bolge: Array.from(form.querySelectorAll('[name="dirsekler_bolge"]:checked')).map(el => el.value).join(', ') || 'Seçim yapılmadı',
+                dirsekler_engel: form.querySelector('[name="dirsekler_engel"]:checked') ? form.querySelector('[name="dirsekler_engel"]:checked').value : 'Cevaplanmadı',
+                dirsekler_7_gun: form.querySelector('[name="dirsekler_7_gun"]:checked') ? form.querySelector('[name="dirsekler_7_gun"]:checked').value : 'Cevaplanmadı',
+
+                eller_bolge: Array.from(form.querySelectorAll('[name="eller_bolge"]:checked')).map(el => el.value).join(', ') || 'Seçim yapılmadı',
+                eller_engel: form.querySelector('[name="eller_engel"]:checked') ? form.querySelector('[name="eller_engel"]:checked').value : 'Cevaplanmadı',
+                eller_7_gun: form.querySelector('[name="eller_7_gun"]:checked') ? form.querySelector('[name="eller_7_gun"]:checked').value : 'Cevaplanmadı',
+
+                ust_sirt_12_ay: form.querySelector('[name="ust_sirt_12_ay"]:checked') ? form.querySelector('[name="ust_sirt_12_ay"]:checked').value : 'Cevaplanmadı',
+                ust_sirt_engel: form.querySelector('[name="ust_sirt_engel"]:checked') ? form.querySelector('[name="ust_sirt_engel"]:checked').value : 'Cevaplanmadı',
+                ust_sirt_7_gun: form.querySelector('[name="ust_sirt_7_gun"]:checked') ? form.querySelector('[name="ust_sirt_7_gun"]:checked').value : 'Cevaplanmadı',
+
+                alt_sirt_12_ay: form.querySelector('[name="alt_sirt_12_ay"]:checked') ? form.querySelector('[name="alt_sirt_12_ay"]:checked').value : 'Cevaplanmadı',
+                alt_sirt_engel: form.querySelector('[name="alt_sirt_engel"]:checked') ? form.querySelector('[name="alt_sirt_engel"]:checked').value : 'Cevaplanmadı',
+                alt_sirt_7_gun: form.querySelector('[name="alt_sirt_7_gun"]:checked') ? form.querySelector('[name="alt_sirt_7_gun"]:checked').value : 'Cevaplanmadı',
+
+                kalca_12_ay: form.querySelector('[name="kalca_12_ay"]:checked') ? form.querySelector('[name="kalca_12_ay"]:checked').value : 'Cevaplanmadı',
+                kalca_engel: form.querySelector('[name="kalca_engel"]:checked') ? form.querySelector('[name="kalca_engel"]:checked').value : 'Cevaplanmadı',
+                kalca_7_gun: form.querySelector('[name="kalca_7_gun"]:checked') ? form.querySelector('[name="kalca_7_gun"]:checked').value : 'Cevaplanmadı',
+                
+                diz_12_ay: form.querySelector('[name="diz_12_ay"]:checked') ? form.querySelector('[name="diz_12_ay"]:checked').value : 'Cevaplanmadı',
+                diz_engel: form.querySelector('[name="diz_engel"]:checked') ? form.querySelector('[name="diz_engel"]:checked').value : 'Cevaplanmadı',
+                diz_7_gun: form.querySelector('[name="diz_7_gun"]:checked') ? form.querySelector('[name="diz_7_gun"]:checked').value : 'Cevaplanmadı',
+
+                ayak_12_ay: form.querySelector('[name="ayak_12_ay"]:checked') ? form.querySelector('[name="ayak_12_ay"]:checked').value : 'Cevaplanmadı',
+                ayak_engel: form.querySelector('[name="ayak_engel"]:checked') ? form.querySelector('[name="ayak_engel"]:checked').value : 'Cevaplanmadı',
+                ayak_7_gun: form.querySelector('[name="ayak_7_gun"]:checked') ? form.querySelector('[name="ayak_7_gun"]:checked').value : 'Cevaplanmadı'
+            };
 
             emailjs.send(serviceID, templateID, templateParams)
                 .then(() => {
