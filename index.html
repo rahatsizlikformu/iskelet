@@ -33,16 +33,17 @@
             
             <div class="grid">
                 <div><strong>İş/Pozisyon:</strong> <input type="text" name="Is_Pozisyon"></div>
+                <!-- Uzmanlık alanı güncellendi -->
                 <div><strong>Uzmanlık:</strong>
                     <select name="Uzmanlik" required>
                         <option value="" disabled selected>Lütfen bir uzmanlık seçin...</option>
-                        <option value="Ortodontist">Ortodontist</option>
-                        <option value="Endodontist">Endodontist</option>
-                        <option value="Pedodontist">Pedodontist</option>
-                        <option value="Periodontist">Periodontist</option>
+                        <option value="Ortodonti">Ortodonti</option>
+                        <option value="Endodonti">Endodonti</option>
+                        <option value="Pedodonti">Pedodonti</option>
+                        <option value="Periodontoloji">Periodontoloji</option>
                         <option value="Protez">Protez</option>
-                        <option value="Oral Diyagnoz">Oral Diyagnoz</option>
-                        <option value="Ağız, Diş ve Çene Cerrahı">Ağız, Diş ve Çene Cerrahı</option>
+                        <option value="Oral Diyagnoz ve Radyoloji">Oral Diyagnoz ve Radyoloji</option>
+                        <option value="Ağız ve Çene Cerrahisi">Ağız ve Çene Cerrahisi</option>
                     </select>
                 </div>
                 <div><strong>Ne kadar süredir bu işi yapıyorsunuz?</strong> <input type="number" name="Calisma_Yil" style="width: 40px;"> yıl <input type="number" name="Calisma_Ay" style="width: 40px;"> ay</div>
@@ -82,7 +83,6 @@
                         <td><div class="radio-group"><label><input type="radio" name="Boyun_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="Boyun_Engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Boyun_7_Gun" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_7_Gun" value="Evet"> Evet</label></div></td>
                     </tr>
-                    <!-- Omuz, Dirsek, El soruları checkbox'a çevrildi -->
                     <tr>
                         <td><strong>Omuzlar</strong><div class="checkbox-group" id="omuzlar-grup"><label><input type="checkbox" name="Omuzlar_Bolge" value="Hayır"> Hayır</label><label><input type="checkbox" name="Omuzlar_Bolge" value="Sağ Omuz"> Sağ</label><label><input type="checkbox" name="Omuzlar_Bolge" value="Sol Omuz"> Sol</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Omuzlar_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="Omuzlar_Engel" value="Evet"> Evet</label></div></td>
@@ -98,7 +98,6 @@
                         <td><div class="radio-group"><label><input type="radio" name="Eller_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="Eller_Engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Eller_7_Gun" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_7_Gun" value="Evet"> Evet</label></div></td>
                     </tr>
-                    <!-- Diğer satırlar aynı -->
                     <tr>
                         <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="UstSirt_12_Ay" value="Hayır"> Hayır</label><label><input type="radio" name="UstSirt_12_Ay" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="UstSirt_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="UstSirt_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="UstSirt_Engel" value="Evet"> Evet</label></div></td>
@@ -132,7 +131,6 @@
     </div>
 
     <script>
-        // Akıllı Checkbox'lar için JavaScript
         function setupExclusiveCheckboxes(groupId) {
             const group = document.getElementById(groupId);
             const checkboxes = group.querySelectorAll('input[type="checkbox"]');
@@ -153,7 +151,6 @@
         setupExclusiveCheckboxes('dirsekler-grup');
         setupExclusiveCheckboxes('eller-grup');
 
-        // Form Gönderme Kodu
         const form = document.getElementById('contact-form');
         form.addEventListener("submit", e => {
             e.preventDefault();
