@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Analiz Paneli</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; color: #333; margin: 0; padding: 20px; }
+        .dashboard { max-width: 1200px; margin: 20px auto; display: none; }
+        .login-container { max-width: 400px; margin: 100px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
+        .login-container input { width: 90%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14pt; }
+        .login-container button { width: 95%; padding: 12px; margin-top: 20px; background-color: #1877f2; color: white; border: none; border-radius: 5px; font-size: 14pt; cursor: pointer; }
+        h1, h2 { text-align: center; color: #1c1e21; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .stat-card { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .stat-card h3 { margin-top: 0; color: #1877f2; }
+        .stat-card p { font-size: 24px; font-weight: bold; margin: 10px 0 0 0; }
+        .chart-container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 30px; }
+        .data-management { text-align: center; margin-top: 30px; padding: 20px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; }
+        .data-management a { display: inline-block; padding: 12px 25px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="login-section" class="login-container">
+        <h2>Analiz Paneli Girişi</h2>
+        <input type="password" id="password" placeholder="Şifrenizi Girin">
+        <button onclick="checkPassword()">Giriş Yap</button>
+    </div>
+
+    <div id="dashboard-section" class="dashboard">
+        <h1>Kas İskelet Sistemi Analiz Paneli</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Toplam Katılımcı</h3>
+                <p id="total-participants">Yükleniyor...</p>
+            </div>
+            <div class="stat-card">
+                <h3>Boyun Ağrısı Oranı</h3>
+                <p id="neck-pain-rate">Yükleniyor...</p>
+            </div>
+            <div class="stat-card">
+                <h3>Bel Ağrısı Oranı</h3>
+                <p id="lowerback-pain-rate">Yükleniyor...</p>
+            </div>
+            <div class="stat-card">
+                <h3>İşini Tamamen Engelleyen Ağrı</h3>
+                <p id="work-block-rate">Yükleniyor...</p>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3>Vücut Bölgelerine Göre Ağrı/Sızı Dağılımı (Son 12 Ay)</h3>
+            <canvas id="painDistributionChart"></canvas>
+        </div>
+
+        <div class="data-management">
+            <h3>Veri Yönetimi</h3>
+            <p>Hatalı veya test amaçlı girilen verileri silmek için aşağıdaki butona tıklayarak Google E-Tablosu'nu açın. Silmek istediğiniz satırın numarasının üzerine sağ tıklayıp "Satırı sil" seçeneğini kullanın. Bu sayfayı yenilediğinizde istatistikler güncellenecektir.</p>
+            <!-- GOOGLE E-TABLO LİNKİNİZİ BURAYA YAPIŞTIRIN -->
+            <a href="https://docs.google.com/spreadsheets/d/1SJ_BeFpMzg-YnoDlzJF5GVEvT_jJYgyowXWfaW9fHOI/edit?usp=sharing/edit" target="_blank">Veri Tablosunu Aç ve Yönet</a>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            if (document.getElementById('password').value === 'admin44') {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                loadAnalytics();
+            } else {
+                alert('Hatalı şifre!');
+            }
+        }
+
+        function loadAnalytics() {
+            // KENDİ SHEETDB API LİNKİNİZİ BURAYA YAPIŞTIRIN
+            const sheetDB_API_URL = 'https://sheetdb.io/api/v1/8adk03r506ch0';
+
+            fetch(sheetDB_API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("Veriler yüklenemedi: " + data.error);
+                        return;
+                    }
+                    
+                    const total = data.length;
+                    document.getElementById('total-participants').innerText = total;
+
+                    const neckPainCount = data.filter(row => row.Boyun_12_Ay === 'Evet').length;
+                    document.getElementById('neck-pain-rate').innerText = total > 0 ? `%${((neckPainCount / total) * 100).toFixed(1)}` : 'N/A';
+                    
+                    const lowerBackPainCount = data.filter(row => row.AltSirt_12_Ay === 'Evet').length;
+                    document.getElementById('lowerback-pain-rate').innerText = total > 0 ? `%${((lowerBackPainCount / total) * 100).toFixed(1)}` : 'N/A';
+
+                    const workBlockCount = data.filter(row => row.Boyun_Engel === 'Evet' || row.Omuzlar_Engel === 'Evet' || row.Dirsekler_Engel === 'Evet' || row.Eller_Engel === 'Evet' || row.UstSirt_Engel === 'Evet' || row.AltSirt_Engel === 'Evet' || row.Kalca_Engel === 'Evet' || row.Diz_Engel === 'Evet' || row.Ayak_Engel === 'Evet').length;
+                    document.getElementById('work-block-rate').innerText = total > 0 ? `%${((workBlockCount / total) * 100).toFixed(1)}` : 'N/A';
+
+                    const painCounts = {
+                        'Boyun': neckPainCount,
+                        'Omuzlar': data.filter(row => row.Omuzlar_Bolge && row.Omuzlar_Bolge !== 'Hayır').length,
+                        'Dirsekler': data.filter(row => row.Dirsekler_Bolge && row.Dirsekler_Bolge !== 'Hayır').length,
+                        'Eller/Bilekler': data.filter(row => row.Eller_Bolge && row.Eller_Bolge !== 'Hayır').length,
+                        'Üst Sırt': data.filter(row => row.UstSirt_12_Ay === 'Evet').length,
+                        'Bel Bölgesi': lowerBackPainCount,
+                        'Kalça/Uyluk': data.filter(row => row.Kalca_12_Ay === 'Evet').length,
+                        'Dizler': data.filter(row => row.Diz_12_Ay === 'Evet').length,
+                        'Ayaklar/Bilekler': data.filter(row => row.Ayak_12_Ay === 'Evet').length
+                    };
+
+                    const ctx = document.getElementById('painDistributionChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(painCounts),
+                            datasets: [{
+                                label: 'Ağrı/Sızı Bildiren Kişi Sayısı',
+                                data: Object.values(painCounts),
+                                backgroundColor: 'rgba(24, 119, 242, 0.8)',
+                                borderColor: 'rgba(24, 119, 242, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: { scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }, responsive: true, maintainAspectRatio: false }
+                    });
+                })
+                .catch(error => {
+                    console.error('Veri çekme hatası:', error);
+                    document.getElementById('total-participants').innerText = 'Hata';
+                });
+        }
+    </script>
+</body>
+</html>
