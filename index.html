@@ -10,7 +10,7 @@
         h1 { font-size: 18pt; text-align: center; color: #1c1e21; }
         .subtitle { font-size: 10pt; text-align: center; margin-bottom: 25px; color: #606770; }
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px 30px; margin-bottom: 20px; align-items: center; }
-        input[type="text"], input[type="number"] { border: 1px solid #ccc; border-radius: 4px; padding: 8px 10px; width: 95%; font-size: 11pt; }
+        input[type="text"], input[type="number"], select { border: 1px solid #ccc; border-radius: 4px; padding: 8px 10px; width: 100%; box-sizing: border-box; font-size: 11pt; font-family: inherit; }
         h3 { border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; margin-top: 30px; font-size: 14pt; }
         .how-to-text { font-size: 11pt; color: #4b4f56; }
         .body-image-container { text-align: center; margin: 25px 0; }
@@ -33,7 +33,18 @@
             
             <div class="grid">
                 <div><strong>İş/Pozisyon:</strong> <input type="text" name="Is_Pozisyon"></div>
-                <div><strong>Uzmanlık:</strong> <input type="text" name="Uzmanlik"></div>
+                <div><strong>Uzmanlık:</strong>
+                    <select name="Uzmanlik" required>
+                        <option value="" disabled selected>Lütfen bir uzmanlık seçin...</option>
+                        <option value="Ortodontist">Ortodontist</option>
+                        <option value="Endodontist">Endodontist</option>
+                        <option value="Pedodontist">Pedodontist</option>
+                        <option value="Periodontist">Periodontist</option>
+                        <option value="Protez">Protez</option>
+                        <option value="Oral Diyagnoz">Oral Diyagnoz</option>
+                        <option value="Ağız, Diş ve Çene Cerrahı">Ağız, Diş ve Çene Cerrahı</option>
+                    </select>
+                </div>
                 <div><strong>Ne kadar süredir bu işi yapıyorsunuz?</strong> <input type="number" name="Calisma_Yil" style="width: 40px;"> yıl <input type="number" name="Calisma_Ay" style="width: 40px;"> ay</div>
                 <div><strong>Haftada kaç saat çalışıyorsunuz?</strong> <input type="number" name="Haftalik_Saat" style="width: 60px;"></div>
                 <div><strong>Cinsiyet:</strong> <label><input type="radio" name="Cinsiyet" value="Erkek"> E</label> <label><input type="radio" name="Cinsiyet" value="Kadın"> K</label></div>
@@ -60,7 +71,6 @@
                         <th colspan="2">Rahatsızlık yaşamış olanlar tarafından cevaplanacak</th>
                     </tr>
                     <tr>
-                        <!-- Tablo başlığı güncellendi -->
                         <td><strong>Son 12 ay içinde ağrı/sızı veya rahatsızlık hissettiniz mi?</strong></td>
                         <td><strong>Son 12 ay içinde rahatsızlık işinizi yapmanıza engel oldu mu?</strong></td>
                         <td><strong>Son 7 gün içinde rahatsızlık yaşadınız mı?</strong></td>
@@ -72,23 +82,24 @@
                         <td><div class="radio-group"><label><input type="radio" name="Boyun_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="Boyun_Engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Boyun_7_Gun" value="Hayır"> Hayır</label><label><input type="radio" name="Boyun_7_Gun" value="Evet"> Evet</label></div></td>
                     </tr>
-                    <!-- Omuz, Dirsek, El sorularına "Hayır" seçeneği eklendi -->
+                    <!-- Omuz, Dirsek, El soruları checkbox'a çevrildi -->
                     <tr>
-                        <td><strong>Omuzlar</strong><div class="radio-group"><label><input type="radio" name="Omuzlar_Bolge" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_Bolge" value="Sağ Omuz"> Sağ</label><label><input type="radio" name="Omuzlar_Bolge" value="Sol Omuz"> Sol</label></div></td>
+                        <td><strong>Omuzlar</strong><div class="checkbox-group" id="omuzlar-grup"><label><input type="checkbox" name="Omuzlar_Bolge" value="Hayır"> Hayır</label><label><input type="checkbox" name="Omuzlar_Bolge" value="Sağ Omuz"> Sağ</label><label><input type="checkbox" name="Omuzlar_Bolge" value="Sol Omuz"> Sol</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Omuzlar_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="Omuzlar_Engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Omuzlar_7_Gun" value="Hayır"> Hayır</label><label><input type="radio" name="Omuzlar_7_Gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>Dirsekler</strong><div class="radio-group"><label><input type="radio" name="Dirsekler_Bolge" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler_Bolge" value="Sağ Dirsek"> Sağ</label><label><input type="radio" name="Dirsekler_Bolge" value="Sol Dirsek"> Sol</label></div></td>
+                        <td><strong>Dirsekler</strong><div class="checkbox-group" id="dirsekler-grup"><label><input type="checkbox" name="Dirsekler_Bolge" value="Hayır"> Hayır</label><label><input type="checkbox" name="Dirsekler_Bolge" value="Sağ Dirsek"> Sağ</label><label><input type="checkbox" name="Dirsekler_Bolge" value="Sol Dirsek"> Sol</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Dirsekler_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="Dirsekler_Engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Dirsekler_7_Gun" value="Hayır"> Hayır</label><label><input type="radio" name="Dirsekler_7_Gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
-                        <td><strong>El Bilekleri/Eller</strong><div class="radio-group"><label><input type="radio" name="Eller_Bolge" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_Bolge" value="Sağ El/Bilek"> Sağ</label><label><input type="radio" name="Eller_Bolge" value="Sol El/Bilek"> Sol</label></div></td>
+                        <td><strong>El Bilekleri/Eller</strong><div class="checkbox-group" id="eller-grup"><label><input type="checkbox" name="Eller_Bolge" value="Hayır"> Hayır</label><label><input type="checkbox" name="Eller_Bolge" value="Sağ El/Bilek"> Sağ</label><label><input type="checkbox" name="Eller_Bolge" value="Sol El/Bilek"> Sol</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Eller_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="Eller_Engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="Eller_7_Gun" value="Hayır"> Hayır</label><label><input type="radio" name="Eller_7_Gun" value="Evet"> Evet</label></div></td>
                     </tr>
-                     <tr>
+                    <!-- Diğer satırlar aynı -->
+                    <tr>
                         <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="UstSirt_12_Ay" value="Hayır"> Hayır</label><label><input type="radio" name="UstSirt_12_Ay" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="UstSirt_Engel" value="Hayır"> Hayır</label><label><input type="radio" name="UstSirt_Engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="UstSirt_Engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="UstSirt_7_Gun" value="Hayır"> Hayır</label><label><input type="radio" name="UstSirt_7_Gun" value="Evet"> Evet</label></div></td>
@@ -121,6 +132,28 @@
     </div>
 
     <script>
+        // Akıllı Checkbox'lar için JavaScript
+        function setupExclusiveCheckboxes(groupId) {
+            const group = document.getElementById(groupId);
+            const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+            const noCheckbox = Array.from(checkboxes).find(cb => cb.value === 'Hayır');
+            const sideCheckboxes = Array.from(checkboxes).filter(cb => cb.value !== 'Hayır');
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    if (checkbox === noCheckbox && checkbox.checked) {
+                        sideCheckboxes.forEach(sc => sc.checked = false);
+                    } else if (sideCheckboxes.includes(checkbox) && checkbox.checked) {
+                        noCheckbox.checked = false;
+                    }
+                });
+            });
+        }
+        setupExclusiveCheckboxes('omuzlar-grup');
+        setupExclusiveCheckboxes('dirsekler-grup');
+        setupExclusiveCheckboxes('eller-grup');
+
+        // Form Gönderme Kodu
         const form = document.getElementById('contact-form');
         form.addEventListener("submit", e => {
             e.preventDefault();
@@ -130,11 +163,20 @@
 
             const formData = new FormData(form);
             const data = {};
+            const checkboxGroups = {};
+
             for (let [key, value] of formData.entries()) {
-                data[key] = value;
+                if (form.querySelector(`[name="${key}"][type="checkbox"]`)) {
+                    if (!checkboxGroups[key]) checkboxGroups[key] = [];
+                    checkboxGroups[key].push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+            for (let key in checkboxGroups) {
+                data[key] = checkboxGroups[key].join(', ');
             }
 
-            // KENDİ SHEETDB API LİNKİNİZİ BURAYA YAPIŞTIRIN
             const sheetDB_API_URL = 'https://sheetdb.io/api/v1/8adk03r506ch0'; 
 
             fetch(sheetDB_API_URL, {
@@ -143,7 +185,7 @@
                 body: JSON.stringify({ data: [data] })
             })
             .then((response) => response.json())
-            .then((html) => { window.location.href = 'tesekkurler.html'; })
+            .then(() => { window.location.href = 'tesekkurler.html'; })
             .catch(error => {
                 btn.textContent = 'Bilgileri Gönder';
                 btn.disabled = false;
