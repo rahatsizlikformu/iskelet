@@ -8,14 +8,20 @@
         .card { background-color: #fff; padding: 40px 50px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         h1 { color: #4CAF50; font-size: 24pt; }
         p { font-size: 14pt; color: #333; }
-        a { display: inline-block; margin-top: 20px; padding: 12px 25px; background-color: #1877f2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .button-container { display: flex; gap: 15px; margin-top: 20px; }
+        a { display: inline-block; padding: 12px 25px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .form-button { background-color: #1877f2; }
+        .analysis-button { background-color: #6c757d; }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>✔ Teşekkür Ederiz!</h1>
         <p>Formunuz başarıyla gönderilmiştir.</p>
-        <a href="./">Yeni Bir Form Doldur</a>
+        <div class="button-container">
+            <a href="./" class="form-button">Yeni Bir Form Doldur</a>
+            <a href="analiz.html" class="analysis-button">Analiz Panelini Görüntüle</a>
+        </div>
     </div>
 </body>
 </html>
