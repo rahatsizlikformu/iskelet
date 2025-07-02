@@ -10,13 +10,15 @@
         .login-container { max-width: 400px; margin: 100px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
         .login-container input { width: 90%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14pt; }
         .login-container button { width: 95%; padding: 12px; margin-top: 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-size: 14pt; cursor: pointer; }
-        h1, h2 { text-align: center; color: #1c1e21; }
-        h3 { border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 15px; }
+        h1, h2, h3, h4 { text-align: center; color: #1c1e21; }
+        h4 { margin-top: 0; font-size: 14pt; color: #495057;}
+        .header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px; background: #fff; border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .header-controls select { padding: 8px; font-size: 12pt; border-radius: 5px; border: 1px solid #ccc;}
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;}
         .stat-card { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
         .stat-card h3 { margin-top: 0; color: #007bff; font-size: 14pt; }
         .stat-card p { font-size: 32px; font-weight: bold; margin: 10px 0 0 0; color: #343a40;}
-        .main-content { display: grid; grid-template-columns: 3fr 1fr; gap: 30px; }
+        .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         .chart-container, .detail-container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         .pie-charts-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
         .data-management { text-align: center; margin-top: 40px; padding: 20px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; }
@@ -35,6 +37,13 @@
     <div id="dashboard-section" class="dashboard">
         <h1>Kas İskelet Sistemi Analiz Paneli</h1>
         
+        <div class="header-controls">
+            <h3>Analiz Filtresi</h3>
+            <select id="specialty-filter" onchange="updateDashboard(this.value)">
+                <option value="All">Tüm Uzmanlıklar</option>
+            </select>
+        </div>
+
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>Toplam Katılımcı</h3>
@@ -67,7 +76,7 @@
         </div>
 
         <div class="chart-container" style="margin-top: 30px;">
-             <h3>Detaylı Vücut Bölgesi Analizi</h3>
+             <h3>Detaylı Vücut Bölgesi Analizi (Sağ/Sol Dağılım)</h3>
              <div class="stats-grid">
                 <div class="pie-charts-grid">
                     <div class="detail-chart-container">
@@ -98,7 +107,9 @@
     </div>
 
     <script>
-        // --- GİRİŞ FONKSİYONU ---
+        let allData = []; // Tüm veriyi saklamak için global değişken
+        let charts = {}; // Mevcut grafikleri saklamak için
+
         function checkPassword() {
             if (document.getElementById('password').value === 'admin44') {
                 document.getElementById('login-section').style.display = 'none';
@@ -108,17 +119,136 @@
                 alert('Hatalı şifre!');
             }
         }
+
+        function loadAnalytics() {
+            const sheetDB_API_URL = 'https://sheetdb.io/api/v1/8adk03r506ch0';
+            fetch(sheetDB_API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    allData = data.filter(row => row.Uzmanlik && row.Uzmanlik.trim() !== '');
+                    populateFilterDropdown();
+                    updateDashboard('All');
+                }).catch(error => {
+                    console.error('Veri çekme hatası:', error);
+                    alert('Veri tabanına bağlanırken bir hata oluştu.');
+                });
+        }
         
-        // --- GRAFİK YARDIMCI FONKSİYONLARI ---
-        function renderChart(ctx, type, labels, data, title, isPercentage = false) {
+        function populateFilterDropdown() {
+            const filter = document.getElementById('specialty-filter');
+            const specialties = [...new Set(allData.map(item => item.Uzmanlik))];
+            specialties.sort().forEach(s => {
+                const option = document.createElement('option');
+                option.value = s;
+                option.textContent = s;
+                filter.appendChild(option);
+            });
+        }
+        
+        function destroyCharts() {
+            for (let chartId in charts) {
+                if (charts[chartId]) {
+                    charts[chartId].destroy();
+                }
+            }
+        }
+
+        function updateDashboard(specialty) {
+            destroyCharts();
+
+            const filteredData = specialty === 'All' ? allData : allData.filter(row => row.Uzmanlik === specialty);
+            
+            if (filteredData.length === 0) {
+                alert("Seçilen uzmanlık alanı için henüz veri bulunmuyor.");
+                // İstatistikleri sıfırla veya 'Veri Yok' göster
+                document.getElementById('total-participants').innerText = '0';
+                document.getElementById('average-age').innerText = 'N/A';
+                document.getElementById('pain-prevalence').innerText = 'N/A';
+                document.getElementById('most-common-pain-area').innerText = 'N/A';
+                return;
+            }
+            
+            const total = filteredData.length;
+            
+            //--- 1. ÜST KART İSTATİSTİKLERİ ---
+            document.getElementById('total-participants').innerText = total;
+
+            const totalAge = filteredData.reduce((sum, row) => sum + parseInt(row.Yas || 0), 0);
+            document.getElementById('average-age').innerText = total > 0 ? (totalAge / total).toFixed(1) : 'N/A';
+            
+            const painRegions = { 'Boyun': 'Boyun_12_Ay', 'Omuzlar': 'Omuzlar_Bolge', 'Dirsekler': 'Dirsekler_Bolge', 'Eller/Bilekler': 'Eller_Bolge', 'Üst Sırt': 'UstSirt_12_Ay', 'Bel Bölgesi': 'AltSirt_12_Ay', 'Kalça/Uyluk': 'Kalca_12_Ay', 'Dizler': 'Diz_12_Ay', 'Ayaklar/Bilekler': 'Ayak_12_Ay' };
+            const painCounts = {};
+            const painSufferers = new Set();
+
+            for (const region in painRegions) {
+                const key = painRegions[region];
+                painCounts[region] = filteredData.filter(row => row[key] && row[key] !== 'Hayır').length;
+                filteredData.forEach((row, index) => {
+                    if (row[key] && row[key] !== 'Hayır') {
+                        painSufferers.add(index);
+                    }
+                });
+            }
+            const anyPainCount = painSufferers.size;
+            document.getElementById('pain-prevalence').innerText = total > 0 ? `%${((anyPainCount / total) * 100).toFixed(1)}` : 'N/A';
+            
+            const mostCommonPainArea = Object.keys(painCounts).reduce((a, b) => painCounts[a] > painCounts[b] ? a : b);
+            document.getElementById('most-common-pain-area').innerText = mostCommonPainArea;
+
+            //--- 2. DEMOGRAFİK GRAFİKLER ---
+            const maleCount = filteredData.filter(r => r.Cinsiyet === 'Erkek').length;
+            const femaleCount = total - maleCount;
+            const genderData = { labels: ['Erkek', 'Kadın'], datasets: [{ data: [maleCount, femaleCount], backgroundColor: ['#007bff', '#ffc0cb'] }] };
+            charts.genderPieChart = renderChart(document.getElementById('genderPieChart').getContext('2d'), 'pie', genderData.labels, genderData.datasets, 'Cinsiyet Dağılımı');
+            
+            const ageGroups = { '20-30': 0, '31-40': 0, '41-50': 0, '51+': 0 };
+            filteredData.forEach(row => {
+                const age = parseInt(row.Yas);
+                if (age <= 30) ageGroups['20-30']++;
+                else if (age <= 40) ageGroups['31-40']++;
+                else if (age <= 50) ageGroups['41-50']++;
+                else if (age > 50) ageGroups['51+']++;
+            });
+            const ageData = { labels: Object.keys(ageGroups), datasets: [{ label: 'Kişi Sayısı', data: Object.values(ageGroups), backgroundColor: '#28a745' }] };
+            charts.ageGroupBarChart = renderChart(document.getElementById('ageGroupBarChart').getContext('2d'), 'bar', ageData.labels, ageData.datasets, 'Yaş Grupları');
+
+            //--- 3. ANA AĞRI DAĞILIMI ( prevalans % olarak) ---
+            const prevalencePercentages = {};
+            for (const region in painCounts) {
+                prevalencePercentages[region] = total > 0 ? ((painCounts[region] / total) * 100).toFixed(1) : 0;
+            }
+            const prevalenceData = { labels: Object.keys(prevalencePercentages), datasets: [{ label: 'Görülme Sıklığı (%)', data: Object.values(prevalencePercentages), backgroundColor: 'rgba(0, 123, 255, 0.8)' }] };
+            charts.prevalenceBarChart = renderChart(document.getElementById('prevalenceBarChart').getContext('2d'), 'bar', prevalenceData.labels, prevalenceData.datasets, 'Bölgesel Ağrı Prevalansı', true);
+
+            //--- 4. DETAYLI BÖLGE ANALİZİ (PASTA GRAFİKLER) ---
+            const countSide = (key) => ({
+                'Sağ': filteredData.filter(r => r[key] && r[key].includes('Sağ')).length,
+                'Sol': filteredData.filter(r => r[key] && r[key].includes('Sol')).length
+            });
+
+            const shoulderSides = countSide('Omuzlar_Bolge');
+            const shoulderData = { labels: ['Sağ', 'Sol'], datasets: [{ data: [shoulderSides['Sağ'], shoulderSides['Sol']], backgroundColor: ['#ffc107', '#17a2b8'] }]};
+            charts.shoulderPieChart = renderChart(document.getElementById('shoulderPieChart').getContext('2d'), 'pie', shoulderData.labels, shoulderData.datasets);
+            
+            const elbowSides = countSide('Dirsekler_Bolge');
+            const elbowData = { labels: ['Sağ', 'Sol'], datasets: [{ data: [elbowSides['Sağ'], elbowSides['Sol']], backgroundColor: ['#ffc107', '#17a2b8'] }]};
+            charts.elbowPieChart = renderChart(document.getElementById('elbowPieChart').getContext('2d'), 'pie', elbowData.labels, elbowData.datasets);
+            
+            const handSides = countSide('Eller_Bolge');
+            const handData = { labels: ['Sağ', 'Sol'], datasets: [{ data: [handSides['Sağ'], handSides['Sol']], backgroundColor: ['#ffc107', '#17a2b8'] }]};
+            charts.handPieChart = renderChart(document.getElementById('handPieChart').getContext('2d'), 'pie', handData.labels, handData.datasets);
+        }
+
+        function renderChart(ctx, type, labels, datasets, title, isPercentage = false) {
              const options = {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
+                    title: { display: !!title, text: title },
+                    legend: { position: 'top', display: type === 'pie' },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                let label = context.dataset.label || '';
+                                let label = context.label || '';
                                 if (label) { label += ': '; }
                                 if (context.parsed !== null) {
                                     label += context.raw;
@@ -133,92 +263,7 @@
             if(type === 'bar'){
                 options.scales = { y: { beginAtZero: true, ticks: { callback: value => isPercentage ? `${value}%` : value, stepSize: isPercentage ? 10 : undefined } } };
             }
-            return new Chart(ctx, { type, data: { labels, datasets: data }, options });
-        }
-        
-        // --- ANA ANALİZ FONKSİYONU ---
-        function loadAnalytics() {
-            const sheetDB_API_URL = 'https://sheetdb.io/api/v1/8adk03r506ch0';
-
-            fetch(sheetDB_API_URL)
-                .then(response => response.json())
-                .then(data => {
-                    const validData = data.filter(row => row.Uzmanlik && row.Uzmanlik.trim() !== '');
-                    
-                    if (validData.length === 0) {
-                        alert("Henüz analiz edilecek veri bulunmuyor.");
-                        return;
-                    }
-                    
-                    const total = validData.length;
-                    
-                    // --- 1. ÜST KART İSTATİSTİKLERİ ---
-                    document.getElementById('total-participants').innerText = total;
-
-                    const totalAge = validData.reduce((sum, row) => sum + parseInt(row.Yas || 0), 0);
-                    document.getElementById('average-age').innerText = total > 0 ? (totalAge / total).toFixed(1) : 'N/A';
-                    
-                    const painRegions = { 'Boyun': 'Boyun_12_Ay', 'Omuzlar': 'Omuzlar_Bolge', 'Dirsekler': 'Dirsekler_Bolge', 'Eller/Bilekler': 'Eller_Bolge', 'Üst Sırt': 'UstSirt_12_Ay', 'Bel Bölgesi': 'AltSirt_12_Ay', 'Kalça/Uyluk': 'Kalca_12_Ay', 'Dizler': 'Diz_12_Ay', 'Ayaklar/Bilekler': 'Ayak_12_Ay' };
-                    const painCounts = {};
-                    let anyPainCount = 0;
-                    const painSufferers = new Set();
-
-                    for (const region in painRegions) {
-                        const key = painRegions[region];
-                        painCounts[region] = validData.filter(row => row[key] && row[key] !== 'Hayır').length;
-                        validData.forEach((row, index) => {
-                            if (row[key] && row[key] !== 'Hayır') {
-                                painSufferers.add(index);
-                            }
-                        });
-                    }
-                    anyPainCount = painSufferers.size;
-                    document.getElementById('pain-prevalence').innerText = total > 0 ? `%${((anyPainCount / total) * 100).toFixed(1)}` : 'N/A';
-                    
-                    const mostCommonPainArea = Object.keys(painCounts).reduce((a, b) => painCounts[a] > painCounts[b] ? a : b);
-                    document.getElementById('most-common-pain-area').innerText = mostCommonPainArea;
-
-                    // --- 2. DEMOGRAFİK GRAFİKLER ---
-                    const maleCount = validData.filter(r => r.Cinsiyet === 'Erkek').length;
-                    renderChart(document.getElementById('genderPieChart').getContext('2d'), 'pie', ['Erkek', 'Kadın'], [{ data: [maleCount, total - maleCount], backgroundColor: ['#007bff', '#ffc0cb'] }], 'Cinsiyet Dağılımı');
-                    
-                    const ageGroups = { '20-30': 0, '31-40': 0, '41-50': 0, '51+': 0 };
-                    validData.forEach(row => {
-                        const age = parseInt(row.Yas);
-                        if (age <= 30) ageGroups['20-30']++;
-                        else if (age <= 40) ageGroups['31-40']++;
-                        else if (age <= 50) ageGroups['41-50']++;
-                        else ageGroups['51+']++;
-                    });
-                    renderChart(document.getElementById('ageGroupBarChart').getContext('2d'), 'bar', Object.keys(ageGroups), [{ label: 'Kişi Sayısı', data: Object.values(ageGroups), backgroundColor: '#28a745' }], 'Yaş Grupları');
-
-                    // --- 3. ANA AĞRI DAĞILIMI ( prevalans % olarak) ---
-                    const prevalencePercentages = {};
-                    for (const region in painCounts) {
-                        prevalencePercentages[region] = total > 0 ? ((painCounts[region] / total) * 100).toFixed(1) : 0;
-                    }
-                    renderChart(document.getElementById('prevalenceBarChart').getContext('2d'), 'bar', Object.keys(prevalencePercentages), [{ label: 'Görülme Sıklığı (%)', data: Object.values(prevalencePercentages), backgroundColor: 'rgba(0, 123, 255, 0.8)' }], 'Bölgesel Ağrı Prevalansı', true);
-
-                    // --- 4. DETAYLI BÖLGE ANALİZİ (PASTA GRAFİKLER) ---
-                    const countSide = (key) => ({
-                        'Sağ': validData.filter(r => r[key] && r[key].includes('Sağ')).length,
-                        'Sol': validData.filter(r => r[key] && r[key].includes('Sol')).length
-                    });
-
-                    const shoulderSides = countSide('Omuzlar_Bolge');
-                    renderChart(document.getElementById('shoulderPieChart').getContext('2d'), 'pie', ['Sağ', 'Sol'], [{ data: [shoulderSides['Sağ'], shoulderSides['Sol']], backgroundColor: ['#ffc107', '#17a2b8'] }]);
-                    
-                    const elbowSides = countSide('Dirsekler_Bolge');
-                    renderChart(document.getElementById('elbowPieChart').getContext('2d'), 'pie', ['Sağ', 'Sol'], [{ data: [elbowSides['Sağ'], elbowSides['Sol']], backgroundColor: ['#ffc107', '#17a2b8'] }]);
-                    
-                    const handSides = countSide('Eller_Bolge');
-                    renderChart(document.getElementById('handPieChart').getContext('2d'), 'pie', ['Sağ', 'Sol'], [{ data: [handSides['Sağ'], handSides['Sol']], backgroundColor: ['#ffc107', '#17a2b8'] }]);
-
-                })
-                .catch(error => {
-                    console.error('Veri çekme hatası:', error);
-                    alert('Veri tabanına bağlanırken bir hata oluştu.');
-                });
+            return new Chart(ctx, { type: type, data: { labels: labels, datasets: datasets }, options: options });
         }
     </script>
 </body>
