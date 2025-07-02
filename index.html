@@ -23,8 +23,8 @@
         table { width: 100%; border-collapse: collapse; margin-top: 25px; font-size: 10.5pt; }
         th, td { border: 1px solid #ddd; padding: 12px; text-align: left; vertical-align: top; }
         th { background-color: #f6f7f8; font-weight: 600; }
-        .checkbox-group label, .radio-group label { display: block; margin-bottom: 8px; cursor: pointer; }
-        input[type="checkbox"], input[type="radio"] { margin-right: 10px; transform: scale(1.1); vertical-align: middle; }
+        .checkbox-group label, .radio-group label { display: inline-block; margin-right: 15px; cursor: pointer; }
+        input[type="checkbox"], input[type="radio"] { margin-right: 5px; transform: scale(1.1); vertical-align: middle; }
         .submit-button { display: block; width: 100%; max-width: 300px; margin: 40px auto 0 auto; padding: 15px; background-color: #1877f2; color: white; border: none; border-radius: 6px; font-size: 14pt; font-weight: bold; cursor: pointer; text-align: center; transition: background-color 0.2s; }
         .submit-button:hover { background-color: #166fe5; }
         .submit-button:disabled { background-color: #9dbef2; cursor: not-allowed; }
@@ -38,7 +38,8 @@
             
             <div class="grid">
                 <div><strong>İş/Pozisyon:</strong> <input type="text" name="is_pozisyon"></div>
-                <div><strong>Çalışan Kimliği:</strong> <input type="text" name="calisan_kimligi"></div>
+                <!-- "Çalışan Kimliği" etiketi "Uzmanlık" olarak güncellendi -->
+                <div><strong>Uzmanlık:</strong> <input type="text" name="uzmanlik"></div>
                 <div><strong>Ne kadar süredir bu işi yapıyorsunuz?</strong> <input type="number" name="calisma_suresi_yil" style="width: 40px;"> yıl <input type="number" name="calisma_suresi_ay" style="width: 40px;"> ay</div>
                 <div><strong>Haftada kaç saat çalışıyorsunuz?</strong> <input type="number" name="haftalik_saat" style="width: 60px;"></div>
                 <div><strong>Cinsiyet:</strong> <label><input type="radio" name="cinsiyet" value="Erkek"> E</label> <label><input type="radio" name="cinsiyet" value="Kadın"> K</label></div>
@@ -51,7 +52,8 @@
             <h3>Anket nasıl doldurulur:</h3>
             <div class="how-to-text">
                 <p><strong>Resim:</strong> Bu resimde, tabloda belirtilen vücut bölgelerinin yaklaşık konumlarını görebilirsiniz. Sınırlar net olarak tanımlanmamıştır ve bazı kısımlar örtüşmektedir. Rahatsızlığınızın (eğer varsa) hangi bölgede olduğuna kendiniz karar vermelisiniz.</p>
-                <p><strong>Tablo:</strong> Lütfen her soru için uygun kutuya bir "X" işareti koyarak cevap verin. Nasıl cevap vereceğinizden emin değilseniz, lütfen elinizden gelenin en iyisini yapın. Vücudunuzun herhangi bir bölgesinde hiç rahatsızlık yaşamamış olsanız bile anketin 1. sütununun cevaplanması gerektiğini unutmayın; 2. ve 3. sütunlar ise 1. sütunda evet cevabı verdiyseniz doldurulacaktır.</p>
+                <!-- İstenmeyen cümle silindi -->
+                <p><strong>Tablo:</strong> Lütfen her soru için uygun kutuya bir "X" işareti koyarak cevap verin. Vücudunuzun herhangi bir bölgesinde hiç rahatsızlık yaşamamış olsanız bile anketin 1. sütununun cevaplanması gerektiğini unutmayın; 2. ve 3. sütunlar ise 1. sütunda evet cevabı verdiyseniz doldurulacaktır.</p>
             </div>
             
             <div class="body-image-container">
@@ -64,56 +66,58 @@
                         <th>Herkes tarafından cevaplanacak</th>
                         <th colspan="2">Rahatsızlık yaşamış olanlar tarafından cevaplanacak</th>
                     </tr>
+                    <!-- Tablo başlıkları güncellendi -->
                     <tr>
-                        <td><strong>Son 12 ay içinde</strong> rahatsızlık yaşadınız mı?</td>
-                        <td><strong>Son 12 ay içinde</strong> rahatsızlık nedeniyle işinizden alıkonuldunuz mu?</td>
-                        <td><strong>Son 7 gün içinde</strong> rahatsızlık yaşadınız mı?</td>
+                        <td><strong>Son 12 ay içinde ağrı sızı hissettiniz mi?</strong></td>
+                        <td><strong>Son 12 ay içinde rahatsızlık işinizi yapmanıza engel oldu mu?</strong></td>
+                        <td><strong>Son 7 gün içinde rahatsızlık yaşadınız mı?</strong></td>
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Tüm satırlara "Kısmen" seçeneği eklendi -->
                     <tr>
                         <td><strong>Boyun</strong><div class="radio-group"><label><input type="radio" name="boyun_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="boyun_12_ay" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="boyun_engel" value="Hayır"> Hayır</label><label><input type="radio" name="boyun_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="boyun_engel" value="Hayır"> Hayır</label><label><input type="radio" name="boyun_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="boyun_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="boyun_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="boyun_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
                         <td><strong>Omuzlar</strong><div class="checkbox-group"><label><input type="checkbox" name="omuzlar_bolge" value="Sağ Omuz"> Sağ</label><label><input type="checkbox" name="omuzlar_bolge" value="Sol Omuz"> Sol</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="omuzlar_engel" value="Hayır"> Hayır</label><label><input type="radio" name="omuzlar_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="omuzlar_engel" value="Hayır"> Hayır</label><label><input type="radio" name="omuzlar_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="omuzlar_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="omuzlar_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="omuzlar_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
                         <td><strong>Dirsekler</strong><div class="checkbox-group"><label><input type="checkbox" name="dirsekler_bolge" value="Sağ Dirsek"> Sağ</label><label><input type="checkbox" name="dirsekler_bolge" value="Sol Dirsek"> Sol</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="dirsekler_engel" value="Hayır"> Hayır</label><label><input type="radio" name="dirsekler_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="dirsekler_engel" value="Hayır"> Hayır</label><label><input type="radio" name="dirsekler_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="dirsekler_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="dirsekler_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="dirsekler_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
                         <td><strong>El Bilekleri/Eller</strong><div class="checkbox-group"><label><input type="checkbox" name="eller_bolge" value="Sağ El/Bilek"> Sağ</label><label><input type="checkbox" name="eller_bolge" value="Sol El/Bilek"> Sol</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="eller_engel" value="Hayır"> Hayır</label><label><input type="radio" name="eller_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="eller_engel" value="Hayır"> Hayır</label><label><input type="radio" name="eller_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="eller_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="eller_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="eller_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                      <tr>
                         <td><strong>Sırtın Üst Kısmı</strong><div class="radio-group"><label><input type="radio" name="ust_sirt_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="ust_sirt_12_ay" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="ust_sirt_engel" value="Hayır"> Hayır</label><label><input type="radio" name="ust_sirt_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="ust_sirt_engel" value="Hayır"> Hayır</label><label><input type="radio" name="ust_sirt_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="ust_sirt_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="ust_sirt_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="ust_sirt_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
                         <td><strong>Sırtın Alt Kısmı (bel)</strong><div class="radio-group"><label><input type="radio" name="alt_sirt_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="alt_sirt_12_ay" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="alt_sirt_engel" value="Hayır"> Hayır</label><label><input type="radio" name="alt_sirt_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="alt_sirt_engel" value="Hayır"> Hayır</label><label><input type="radio" name="alt_sirt_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="alt_sirt_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="alt_sirt_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="alt_sirt_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
                         <td><strong>Bir veya İki Kalça/Uyluk</strong><div class="radio-group"><label><input type="radio" name="kalca_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="kalca_12_ay" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="kalca_engel" value="Hayır"> Hayır</label><label><input type="radio" name="kalca_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="kalca_engel" value="Hayır"> Hayır</label><label><input type="radio" name="kalca_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="kalca_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="kalca_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="kalca_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
                         <td><strong>Bir veya İki Diz</strong><div class="radio-group"><label><input type="radio" name="diz_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="diz_12_ay" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="diz_engel" value="Hayır"> Hayır</label><label><input type="radio" name="diz_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="diz_engel" value="Hayır"> Hayır</label><label><input type="radio" name="diz_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="diz_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="diz_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="diz_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                     <tr>
                         <td><strong>Bir veya İki Ayak Bileği/Ayak</strong><div class="radio-group"><label><input type="radio" name="ayak_12_ay" value="Hayır"> Hayır</label><label><input type="radio" name="ayak_12_ay" value="Evet"> Evet</label></div></td>
-                        <td><div class="radio-group"><label><input type="radio" name="ayak_engel" value="Hayır"> Hayır</label><label><input type="radio" name="ayak_engel" value="Evet"> Evet</label></div></td>
+                        <td><div class="radio-group"><label><input type="radio" name="ayak_engel" value="Hayır"> Hayır</label><label><input type="radio" name="ayak_engel" value="Kısmen"> Kısmen</label><label><input type="radio" name="ayak_engel" value="Evet"> Evet</label></div></td>
                         <td><div class="radio-group"><label><input type="radio" name="ayak_7_gun" value="Hayır"> Hayır</label><label><input type="radio" name="ayak_7_gun" value="Evet"> Evet</label></div></td>
                     </tr>
                 </tbody>
@@ -134,11 +138,10 @@
             btn.disabled = true;
 
             const serviceID = 'service_becu4bu';
-            const templateID = 'template_6qnh3pd';
+            const templateID = 'template_p9ans5e';
             
-            // FormData'dan daha güvenilir olan, doğrudan bir nesne oluşturan yöntem
             const templateParams = {
-                calisan_kimligi: form.querySelector('[name="calisan_kimligi"]').value,
+                uzmanlik: form.querySelector('[name="uzmanlik"]').value,
                 is_pozisyon: form.querySelector('[name="is_pozisyon"]').value,
                 yas: form.querySelector('[name="yas"]').value,
                 cinsiyet: form.querySelector('[name="cinsiyet"]:checked') ? form.querySelector('[name="cinsiyet"]:checked').value : 'Belirtilmedi',
